@@ -1,11 +1,13 @@
 import axios from '../api/axios';
 import React, { useEffect, useState } from 'react'
 import "./Row.css"
+import MovieModal from './MovieModal';
 
 
 const Row = ({title, id, fetchUrl}) => {
   const [movies, setMovies] = useState([]);
   const [modalOpen, setModalOpen] = useState(false)
+  const [movieSelected, setMovieSelected] = useState({})
   
   useEffect(() => {
     fetchMovieData();
@@ -18,6 +20,7 @@ const Row = ({title, id, fetchUrl}) => {
 
   const handleClick = (movie) => {
     setModalOpen(true)
+    setMovieSelected(movie)
   }
 
   return (
@@ -56,9 +59,10 @@ const Row = ({title, id, fetchUrl}) => {
         </div>
       </div>
 
-          {/* {modalOpen ?
-            :
-          } */}
+          {modalOpen ?
+            <MovieModal {...movieSelected} setModalOpen={setModalOpen}/>
+          :
+          null}
 
     </div>
   )
