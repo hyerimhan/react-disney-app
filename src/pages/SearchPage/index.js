@@ -2,6 +2,7 @@ import axios from "../../api/axios";
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./SearchPage.css";
+import { useDebounce } from "../../hooks/useDebounce";
 
 const SearchPage = () => {
   const navigate = useNavigate();
@@ -12,7 +13,7 @@ const SearchPage = () => {
   };
 
   let query = useQuery();
-  const searchTerm = query.get("q");
+  const searchTerm = useDebounce(query.get("q"), 500);
 
   useEffect(() => {
     if (searchTerm) {
@@ -58,7 +59,13 @@ const SearchPage = () => {
       </section>
     );
   } else {
-    return <div>없음</div>;
+    return (
+      <section className="no-results">
+        <div className="no-results__text">
+          <p>찾고자하는 검색어"{searchTerm}"에 맞는 영화가 없습니다.</p>
+        </div>
+      </section>
+    );
   }
 };
 
