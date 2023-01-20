@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 import axios from "../../api/axios";
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";

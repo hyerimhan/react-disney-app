@@ -1,9 +1,4 @@
-import styled from "styled-components";
 import Nav from "./components/Nav";
-import Banner from "./components/Banner";
-import Category from "./components/Category";
-import Row from "./components/Row";
-import requests from "./api/requests";
 import { Outlet, Route, Routes } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import MainPage from "./pages/MainPage";
