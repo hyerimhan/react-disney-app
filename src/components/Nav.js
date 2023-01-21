@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
   getAuth,
@@ -26,7 +25,7 @@ const Nav = () => {
   const provider = new GoogleAuthProvider();
 
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, user => {
       if (!user) {
         navigate("/");
       } else if (user && pathname === "/") {

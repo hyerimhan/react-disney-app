@@ -26,7 +26,6 @@
     width: auto !important;
   }
   .info {
-    text-align: start;
     padding-right: 1.2rem;
   }
   .space {
@@ -72,7 +71,7 @@
 .banner__button {
   display: flex;
   flex-direction: row;
-  justify-content: start;
+  justify-content: flex-start;
   align-items: center;
   cursor: pointer;
   outline: none;
