@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import axios from "../api/axios";
 import React, { useEffect, useState } from "react";
 import "./Row.css";
@@ -20,7 +19,7 @@ const Row = ({ title, id, fetchUrl }) => {
 
   useEffect(() => {
     fetchMovieData();
-  },[]);
+  }, []);
 
   const fetchMovieData = async () => {
     const request = await axios.get(fetchUrl);

@@ -1,9 +1,8 @@
-/* eslint-disable array-callback-return */
 import axios from "../../api/axios";
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./SearchPage.css";
-import useDebounce from "../../hooks/useDebounce";
+import { useDebounce } from "../../hooks/useDebounce";
 
 const SearchPage = () => {
   const navigate = useNavigate();

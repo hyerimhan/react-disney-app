@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import Nav from '../../components/Nav';
 import Banner from '../../components/Banner';
 import Category from '../../components/Category';
 import Row from '../../components/Row';
