@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import axios from "../api/axios";
 import React, { useEffect, useState } from "react";
 import "./Row.css";
