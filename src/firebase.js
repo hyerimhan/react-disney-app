@@ -1,8 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import "firebase/auth";
-import "firebase/database";
-import "firebase/storage";
+import { getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signOut } from "firebase/auth";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -18,5 +16,33 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+export const auth = getAuth();
+const provider = new GoogleAuthProvider()
+
+export function login(userData) {
+  signInWithPopup(auth, provider)
+  .then((result)=> {
+    userData(result.user)
+    localStorage.setItem("userData", JSON.stringify(result.user));
+  })
+  .catch(console.error)
+}
+
+export function logout(userData) {
+  signOut(auth)
+  .then(()=> {
+    userData({})
+  }).catch(console.error)
+}
+
+export function onUserState(nav, path) {
+  onAuthStateChanged(auth, user => {
+    if (!user) {
+      nav("/")
+    } else if (user && path === "/") {
+      nav("/main")
+    }
+  })
+}
 
 export default app;

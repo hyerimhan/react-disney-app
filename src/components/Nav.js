@@ -2,18 +2,10 @@ import React from "react";
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import {
-  getAuth,
-  GoogleAuthProvider,
-  onAuthStateChanged,
-  signInWithPopup,
-  signOut,
-} from "firebase/auth";
+import { login, logout, onUserState } from "../firebase";
 
 const Nav = () => {
-  const initialUserData = localStorage.getItem("userData")
-    ? JSON.parse(localStorage.getItem("userData"))
-    : {};
+  const initialUserData = localStorage.getItem("userData") ? JSON.parse(localStorage.getItem("userData")) : {};
 
   const [show, setShow] = useState(false);
   const { pathname } = useLocation();
@@ -22,39 +14,11 @@ const Nav = () => {
 
   const [userData, setUserData] = useState(initialUserData);
 
-  const auth = getAuth();
-  const provider = new GoogleAuthProvider();
+  console.log(userData)
 
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (!user) {
-        navigate("/");
-      } else if (user && pathname === "/") {
-        navigate("/main");
-      }
-    });
-  }, [auth, navigate, pathname]);
-
-  const handleAuth = () => {
-    signInWithPopup(auth, provider)
-      .then((result) => {
-        setUserData(result.user);
-        localStorage.setItem("userData", JSON.stringify(result.user));
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  const handleLogOut = () => {
-    signOut(auth)
-      .then(() => {
-        setUserData({});
-      })
-      .catch((error) => {
-        alert(error.message);
-      });
-  };
+    onUserState(navigate, pathname);
+  }, [navigate, pathname]);
 
   useEffect(() => {
     window.addEventListener("scroll", () => {
@@ -84,7 +48,7 @@ const Nav = () => {
         />
       </Logo>
       {pathname === "/" ? (
-        <Login onClick={handleAuth}>Login</Login>
+        <Login onClick={() => login(setUserData)}>Login</Login>
       ) : (
         <>
           <Input
@@ -97,7 +61,7 @@ const Nav = () => {
           <SignOut>
             <UserImg src={userData.photoURL} alt={userData.displayName} />
             <DropDown>
-              <span onClick={handleLogOut}>Sign out</span>
+              <span onClick={() => logout(setUserData)}>Sign out</span>
             </DropDown>
           </SignOut>
         </>
@@ -187,6 +151,7 @@ const NavWrapper = styled.nav`
 
 const Logo = styled.a`
   padding: 0;
+
   width: 80px;
   margin-top: 4px;
   max-height: 70px;
