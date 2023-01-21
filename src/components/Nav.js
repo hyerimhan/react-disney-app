@@ -14,8 +14,6 @@ const Nav = () => {
 
   const [userData, setUserData] = useState(initialUserData);
 
-  console.log(userData)
-
   useEffect(() => {
     onUserState(navigate, pathname);
   }, [navigate, pathname]);
