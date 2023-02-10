@@ -4,7 +4,6 @@ import Category from '../../components/Category';
 import Row from '../../components/Row';
 import requests from '../../api/requests';
 
-
 function MainPage() {
   return (
     <Container>
